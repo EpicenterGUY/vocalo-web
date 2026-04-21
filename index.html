@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VocaPick</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- PWA / 아이콘 설정 -->
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#39c5bb">
+    <link rel="icon" href="/static/miku_icon2.png">
+    <link rel="apple-touch-icon" href="/static/miku_icon2.png">
+</head>
+<body>
+    <div class="container">
+        <h1>VocaPick</h1>
+        <p class="subtitle">오늘은 어떤 보카로곡을 들을까?</p>
+
+        <form method="POST" class="search-box">
+            <input 
+                type="text" 
+                name="query" 
+                placeholder="예: 어두운 미쿠 록 감성곡"
+                value="{{ query }}"
+            >
+
+            <button type="submit" name="mode" value="keyword">
+                키워드로 추천
+            </button>
+
+            <button type="submit" name="mode" value="today">
+                오늘의 보카로 10곡
+            </button>
+
+            <button type="submit" name="mode" value="hidden">
+                숨은 명곡 찾기
+            </button>
+
+            <button type="submit" name="mode" value="random">
+                랜덤 추천
+            </button>
+        </form>
+
+        {% if results %}
+            <div class="results">
+                {% for song in results %}
+                    <div class="song-card">
+                        <h2>{{ song.title }}</h2>
+
+                        <p><strong>작곡가:</strong> {{ song.artist }}</p>
+                        <p><strong>보컬:</strong> {{ song.vocal }}</p>
+                        <p><strong>조회수:</strong> {{ song.views }}</p>
+                        <p>{{ song.description }}</p>
+
+                        <div class="keywords">
+                            {% for keyword in song.keywords %}
+                                <span>#{{ keyword }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <a href="{{ song.url }}" target="_blank">
+                            영상 보러가기
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/static/service-worker.js")
+                .then(function() {
+                    console.log("Service Worker registered");
+                })
+                .catch(function(error) {
+                    console.log("Service Worker registration failed:", error);
+                });
+        }
+    </script>
+</body>
+</html>

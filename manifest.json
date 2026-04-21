@@ -1,0 +1,21 @@
+{
+  "name": "VocaPick",
+  "short_name": "VocaPick",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#dffcff",
+  "theme_color": "#39c5bb",
+  "icons": [
+    {
+      "src": "/static/miku_icon2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/miku_icon2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
