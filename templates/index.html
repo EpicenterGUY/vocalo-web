@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>VocaPick</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>VocaPick</h1>
+        <p>오늘은 어떤 보카로곡을 들을까?</p>
+
+        <form method="POST">
+            <input 
+                type="text" 
+                name="query" 
+                placeholder="예: 어두운 미쿠 록 감성곡"
+                value="{{ query }}"
+            >
+
+            <button type="submit" name="mode" value="keyword">
+                키워드로 추천
+            </button>
+
+            <button type="submit" name="mode" value="today">
+                오늘의 보카로 10곡
+            </button>
+
+            <button type="submit" name="mode" value="hidden">
+                숨은 명곡 찾기
+            </button>
+
+            <button type="submit" name="mode" value="random">
+                랜덤 추천
+            </button>
+        </form>
+
+        <div class="results">
+            {% for song in results %}
+                <div class="song-card">
+                    <h2>{{ song.title }}</h2>
+                    <p>작곡가: {{ song.artist }}</p>
+                    <p>보컬: {{ song.vocal }}</p>
+                    <p>조회수: {{ song.views }}</p>
+                    <p>{{ song.description }}</p>
+
+                    <div class="keywords">
+                        {% for keyword in song.keywords %}
+                            <span>#{{ keyword }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <a href="{{ song.url }}" target="_blank">영상 보러가기</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: linear-gradient(135deg, #dffcff, #f8e8ff);
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 16px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+p {
+    text-align: center;
+}
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    display: grid;
+    gap: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+input {
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: #39c5bb;
+    color: white;
+    cursor: pointer;
+}
+
+.results {
+    margin-top: 30px;
+    display: grid;
+    gap: 16px;
+}
+
+.song-card {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.song-card p {
+    text-align: left;
+}
+
+.keywords span {
+    display: inline-block;
+    background: #e8ffff;
+    color: #208f88;
+    padding: 5px 9px;
+    border-radius: 999px;
+    margin: 3px;
+    font-size: 13px;
+}
+
+a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #39c5bb;
+    font-weight: bold;
+    text-decoration: none;
+}
