@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="/static/style.css">
 
-    <!-- PWA / 아이콘 설정 -->
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#39c5bb">
     <link rel="icon" href="/static/miku_icon2.png">
@@ -18,47 +17,114 @@
         <h1>VocaPick</h1>
         <p class="subtitle">오늘은 어떤 보카로곡을 들을까?</p>
 
-        <form method="POST" class="search-box">
-            <input 
-                type="text" 
-                name="query" 
-                placeholder="예: 어두운 미쿠 록 감성곡"
-                value="{{ query }}"
-            >
+        <!-- 1. 니코동 조회수 범위 추천 -->
+        <section class="box main-box">
+            <h2>니코동 조회수 범위 랜덤 추천</h2>
+            <p class="help-text">
+                태그나 검색어를 입력하고 조회수 범위를 정하면 니코동에서 랜덤으로 추천해요.
+            </p>
 
-            <button type="submit" name="mode" value="keyword">
-                키워드로 추천
-            </button>
+            <form method="POST">
+                <input 
+                    type="text" 
+                    name="nico_query" 
+                    placeholder="예: VOCALOID / 初音ミク / flower / 可不"
+                    value="{{ nico_query }}"
+                >
 
-            <button type="submit" name="mode" value="today">
-                오늘의 보카로 10곡
-            </button>
+                <div class="view-range">
+                    <input 
+                        type="number" 
+                        name="min_views" 
+                        placeholder="최소 조회수"
+                        value="{{ min_views }}"
+                    >
 
-            <button type="submit" name="mode" value="hidden">
-                숨은 명곡 찾기
-            </button>
+                    <input 
+                        type="number" 
+                        name="max_views" 
+                        placeholder="최대 조회수"
+                        value="{{ max_views }}"
+                    >
+                </div>
 
-            <button type="submit" name="mode" value="random">
-                랜덤 추천
-            </button>
-        </form>
+                <button type="submit" name="mode" value="views">
+                    니코동 조회수 범위 추천
+                </button>
+            </form>
+        </section>
+
+        <!-- 2. 내장 DB 키워드 추천 -->
+        <section class="box">
+            <h2>내 취향 키워드 추천</h2>
+            <p class="help-text">
+                저장된 곡 목록에서 분위기나 취향 키워드로 추천해요.
+            </p>
+
+            <form method="POST">
+                <input 
+                    type="text" 
+                    name="keyword_query" 
+                    placeholder="예: 어두운 미쿠 록 감성곡"
+                    value="{{ keyword_query }}"
+                >
+
+                <button type="submit" name="mode" value="keyword">
+                    키워드로 추천
+                </button>
+            </form>
+        </section>
+
+        <!-- 3. 기타 추천 -->
+        <section class="box">
+            <h2>기타 추천</h2>
+
+            <form method="POST" class="button-list">
+                <button type="submit" name="mode" value="today">
+                    오늘의 보카로 10곡
+                </button>
+
+                <button type="submit" name="mode" value="hidden">
+                    숨은 명곡 찾기
+                </button>
+
+                <button type="submit" name="mode" value="random">
+                    랜덤 추천
+                </button>
+            </form>
+        </section>
+
+        {% if message %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endif %}
 
         {% if results %}
             <div class="results">
                 {% for song in results %}
                     <div class="song-card">
+                        {% if song.thumbnail %}
+                            <img src="{{ song.thumbnail }}" alt="thumbnail" class="thumbnail">
+                        {% endif %}
+
                         <h2>{{ song.title }}</h2>
 
                         <p><strong>작곡가:</strong> {{ song.artist }}</p>
-                        <p><strong>보컬:</strong> {{ song.vocal }}</p>
+                        <p><strong>보컬/검색:</strong> {{ song.vocal }}</p>
                         <p><strong>조회수:</strong> {{ song.views }}</p>
-                        <p>{{ song.description }}</p>
 
-                        <div class="keywords">
-                            {% for keyword in song.keywords %}
-                                <span>#{{ keyword }}</span>
-                            {% endfor %}
-                        </div>
+                        {% if song.description %}
+                            <p>{{ song.description }}</p>
+                        {% endif %}
+
+                        {% if song.keywords %}
+                            <div class="keywords">
+                                {% for keyword in song.keywords %}
+                                    <span>#{{ keyword }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
                         <a href="{{ song.url }}" target="_blank">
                             영상 보러가기
