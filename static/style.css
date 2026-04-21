@@ -14,19 +14,41 @@ body {
 h1 {
     text-align: center;
     font-size: 40px;
+    margin-bottom: 8px;
 }
 
-p {
+.subtitle {
     text-align: center;
+    color: #666;
+    margin-bottom: 28px;
 }
 
-form {
+.box {
     background: white;
     padding: 20px;
     border-radius: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.main-box {
+    border: 2px solid #39c5bb;
+}
+
+.box h2 {
+    margin-top: 0;
+    font-size: 22px;
+}
+
+.help-text {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+form {
     display: grid;
     gap: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 input {
@@ -34,6 +56,17 @@ input {
     font-size: 16px;
     border-radius: 12px;
     border: 1px solid #ccc;
+}
+
+.view-range {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.view-range input {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 button {
@@ -45,6 +78,24 @@ button {
     background: #39c5bb;
     color: white;
     cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.button-list {
+    display: grid;
+    gap: 12px;
+}
+
+.message {
+    background: white;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+    color: #666;
+    margin-bottom: 18px;
 }
 
 .results {
@@ -60,8 +111,24 @@ button {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
+.song-card h2 {
+    margin-top: 0;
+}
+
 .song-card p {
     text-align: left;
+}
+
+.thumbnail {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.keywords {
+    margin: 10px 0;
 }
 
 .keywords span {
@@ -80,4 +147,18 @@ a {
     color: #39c5bb;
     font-weight: bold;
     text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 34px;
+    }
+
+    .view-range {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 24px 12px;
+    }
 }
