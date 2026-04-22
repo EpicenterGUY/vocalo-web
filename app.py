@@ -4,6 +4,9 @@ import random
 from datetime import date
 import requests
 import os
+import requests
+import re
+import html
 
 app = Flask(__name__)
 
@@ -14,6 +17,37 @@ def load_songs():
 
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+def clean_text(text):
+    if not text:
+        return ""
+
+    text = html.unescape(text)                 # HTML 문자 복원
+    text = re.sub(r"<br\s*/?>", "\n", text)    # <br> -> 줄바꿈
+    text = re.sub(r"<[^>]+>", "", text)        # 나머지 HTML 태그 제거
+    text = re.sub(r"\n+", "\n", text)          # 줄바꿈 정리
+    text = re.sub(r"[ \t]+", " ", text)        # 공백 정리
+    return text.strip()
+
+
+def parse_tags(raw_tags):
+    if not raw_tags:
+        return []
+
+    if isinstance(raw_tags, list):
+        return raw_tags
+
+    raw_tags = clean_text(raw_tags)
+    raw_tags = raw_tags.replace("　", " ")   # 전각 공백 -> 일반 공백
+    tags = [tag.strip() for tag in raw_tags.split() if tag.strip()]
+
+    # 중복 제거
+    unique_tags = []
+    for tag in tags:
+        if tag not in unique_tags:
+            unique_tags.append(tag)
+
+    return unique_tags
 
 
 def random_recommend(songs, limit=10):
@@ -84,13 +118,16 @@ def nico_view_range_recommend(min_views, max_views, query="VOCALOID", limit=10):
         for video in videos:
             content_id = video.get("contentId", "")
 
+            raw_description = video.get("description", "")
+            raw_tags = video.get("tags", "")
+
             songs.append({
-                "title": video.get("title", "제목 없음"),
+                "title": clean_text(video.get("title", "제목 없음")),
                 "artist": "ニコニコ動画",
                 "vocal": query,
                 "views": video.get("viewCounter", 0),
-                "description": video.get("description", ""),
-                "keywords": video.get("tags", []),
+                "description": clean_text(raw_description),
+                "keywords": parse_tags(raw_tags),
                 "url": f"https://www.nicovideo.jp/watch/{content_id}",
                 "thumbnail": video.get("thumbnailUrl", "")
             })
