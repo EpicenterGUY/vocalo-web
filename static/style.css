@@ -13,7 +13,7 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 40px;
+    font-size: 42px;
     margin-bottom: 8px;
 }
 
@@ -23,32 +23,13 @@ h1 {
     margin-bottom: 28px;
 }
 
-.box {
+.search-box {
     background: white;
     padding: 20px;
     border-radius: 18px;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.main-box {
-    border: 2px solid #39c5bb;
-}
-
-.box h2 {
-    margin-top: 0;
-    font-size: 22px;
-}
-
-.help-text {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 14px;
-}
-
-form {
     display: grid;
     gap: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 input {
@@ -56,16 +37,6 @@ input {
     font-size: 16px;
     border-radius: 12px;
     border: 1px solid #ccc;
-}
-
-.view-range {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.view-range input {
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -81,75 +52,109 @@ button {
 }
 
 button:hover {
-    opacity: 0.85;
+    opacity: 0.88;
 }
 
-.button-list {
+.view-range {
     display: grid;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.message {
-    background: white;
-    padding: 16px;
-    border-radius: 14px;
-    text-align: center;
-    color: #666;
-    margin-bottom: 18px;
+.view-range input {
+    width: 100%;
 }
 
 .results {
-    margin-top: 30px;
+    margin-top: 24px;
     display: grid;
-    gap: 16px;
+    gap: 20px;
 }
 
 .song-card {
-    background: white;
-    padding: 20px;
+    background: #ffffff;
     border-radius: 18px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    text-align: left;
 }
 
 .song-card h2 {
-    margin-top: 0;
-}
-
-.song-card p {
-    text-align: left;
+    margin: 12px 0 14px;
+    font-size: 28px;
+    line-height: 1.4;
+    word-break: keep-all;
 }
 
 .thumbnail {
     width: 100%;
-    max-width: 320px;
-    border-radius: 12px;
+    max-width: 360px;
+    border-radius: 14px;
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.meta {
+    margin: 6px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.description {
+    margin: 14px 0;
+    line-height: 1.7;
+    color: #444;
+    white-space: pre-line;
+    word-break: keep-all;
 }
 
 .keywords {
-    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 18px;
 }
 
-.keywords span {
+.tag {
     display: inline-block;
-    background: #e8ffff;
-    color: #208f88;
-    padding: 5px 9px;
+    background: #e8fbfa;
+    color: #198b86;
+    padding: 6px 10px;
     border-radius: 999px;
-    margin: 3px;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-a {
+.song-card a {
     display: inline-block;
-    margin-top: 10px;
-    color: #39c5bb;
-    font-weight: bold;
+    margin-top: 4px;
+    padding: 10px 14px;
+    background: #39c5bb;
+    color: white;
     text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.song-card a:hover {
+    opacity: 0.9;
+}
+
+.no-result {
+    margin-top: 20px;
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    text-align: center;
+    color: #555;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 600px) {
+    .container {
+        padding: 22px 12px;
+    }
+
     h1 {
         font-size: 34px;
     }
@@ -158,7 +163,11 @@ a {
         grid-template-columns: 1fr;
     }
 
-    .container {
-        padding: 24px 12px;
+    .song-card h2 {
+        font-size: 22px;
+    }
+
+    .thumbnail {
+        max-width: 100%;
     }
 }
